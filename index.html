@@ -39,7 +39,7 @@
   }
 
   function get_db_stock2(){    
-    alert('Ready xmlhttp');
+    alert('Ready xmlhttp 2');
     DB_STOCK=[];
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
@@ -51,7 +51,7 @@
         dispData();
       }
     };    
-    xmlhttp.open("POST", "http:updesk.heliohost.org/z_stock.php",true);  
+    xmlhttp.open("POST", "https//:updesk.heliohost.org/z_stock.php",true);  
     xmlhttp.send();  
   }
 
