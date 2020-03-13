@@ -5,9 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>RPHS</title>
+  <style>
+    .modal {
+      display:none;
+      position: fixed;
+      z-index: 500;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.6);
+    }
+  </style>
 </head>
 <body>
   <div>MYSQL DATA</div>
+  
+  <div id="loading" class="modal" style="z-index:450;">      
+    <div style="display:block;width:150px;height:150px;background:none;
+            position: absolute;  z-index: 1000;  top: 50%;  left: 50%;  
+            -webkit-transform: translate(-50%, -50%);  transform: translate(-50%, -50%);">      
+      <img src="proc_logo.gif" alt="proc image" style="float:right;height:100%;width:100%;" />
+    </div>
+  </div>
+
   <div id="myData" style="width:600px;height:500px;border:1px solid black;">
     
   </div>
@@ -17,30 +39,56 @@
 <script>
   var DB_STOCK=[];
 
+  function showProgress(v){
+    var vd='block';
+    if(!v){ vd='none'; }
+    document.getElementById("loading").style.display=vd;
+  }
+
   function get_db_stock(){
-    alert('Ready Axios 2');
+    //alert('Ready Axios');
     DB_STOCK=[];
     const options = {      
       headers: { 'content-type': 'application/x-www-form-urlencoded' }
     };
+
+    let config = {
+      headers: {
+        "Content-Type": "application/json",
+        'Access-Control-Allow-Origin': '*',
+      }
+    }
 
     const xopt = {
       "Content-Type": "application/x-www-form-urlencoded",
       Accept: "application/json"
     }
 
-    axios.post('https://localhost:3000/rphs/z_stock.php', { request: 0 }, xopt )     
+    const xhead = {
+      "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
+      "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Origin": "*"
+    }
+
+    //axios.post('http://localhost/rphs/z_stock.php', { request: 0 }, xopt )     
+    var xdata={ request: 0 };
+    var xurl='z_user.php';
+    xurl='http://updesk.heliohost.org/z_user.php';
     
-    //axios.post('https://updesk.heliohost.org/z_stock.php', { request: 0 }, xopt )    
-    //axios.post('https://updesk.heliohost.org/z_stock.php', { request: 0 }, xopt )    
+    //xdata=JSON.stringify({ request: 0 });
+
+    showProgress(true);
+    axios.post(xurl, xdata, xhead)    
     .then(function (response) { 
+      showProgress(false);
       console.log(response.data); DB_STOCK = response.data; dispData(); 
     })    
-    .catch(function (error) { console.log(error); });
+    .catch(function (error) { console.log(error); showProgress(false); });
   }
 
+/*
   function get_db_stock2(){    
-    alert('Ready xmlhttp 2');
+    alert('Ready xmlhttp');
     DB_STOCK=[];
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
@@ -52,20 +100,24 @@
         dispData();
       }
     };    
-    xmlhttp.open("POST", "https://updesk.heliohost.org/z_stock.php",true);  
+    xmlhttp.open("POST", "https://updesk.heliohost.org/z_user.php",true);  
     xmlhttp.send();  
   }
+*/  
+
+ 
 
   function dispData(){
     var aryDB=DB_STOCK;
     var dtl='';
     for(var i=0;i<aryDB.length;i++){
       dtl+=
-        '<div style="width:100%;height:20px;margin-top:5px;">'+aryDB[i]['stockno']+'</div>';
+        '<div style="width:100%;height:20px;margin-top:5px;">'+aryDB[i]['username']+'</div>';
     }
     document.getElementById('myData').innerHTML=dtl;
   }
   
   get_db_stock();
+  //ahem();
 </script>
 </html>
