@@ -29,9 +29,10 @@
       Accept: "application/json"
     }
 
-    //axios.post('http://localhost/rphs/z_stock.php', { request: 0 }, xopt )     
+    axios.post('http://localhost/rphs/z_stock.php', { request: 0 }, xopt )     
     
-    axios.post('https://updesk.heliohost.org/z_stock.php', { request: 0 }, xopt )    
+    //axios.post('https://updesk.heliohost.org/z_stock.php', { request: 0 }, xopt )    
+    //axios.post('https://updesk.heliohost.org/z_stock.php', { request: 0 }, xopt )    
     .then(function (response) { 
       console.log(response.data); DB_STOCK = response.data; dispData(); 
     })    
