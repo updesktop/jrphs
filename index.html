@@ -112,7 +112,12 @@
     var dtl='';
     for(var i=0;i<aryDB.length;i++){
       dtl+=
-        '<div style="width:100%;height:20px;margin-top:5px;">'+aryDB[i]['username']+'</div>';
+        '<div style="width:100%;height:20px;margin-top:5px;">'+
+            '<div style="width:25%;height:100%;margin-top:5px;">'+aryDB[i]['clientno']+'</div>'+
+            '<div style="width:25%;height:100%;margin-top:5px;">'+aryDB[i]['userid']+'</div>'+
+            '<div style="width:25%;height:100%;margin-top:5px;">'+aryDB[i]['usercode']+'</div>'+
+            '<div style="width:25%;height:100%;margin-top:5px;">'+aryDB[i]['username']+'</div>'+
+        '</div>';
     }
     document.getElementById('myData').innerHTML=dtl;
   }
