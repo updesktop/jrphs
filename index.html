@@ -84,9 +84,12 @@
     axios.post(xurl, xdata, xhead)    
     .then(function (response) { 
       showProgress(false);
-      console.log(response.data); DB_STOCK = response.data; dispData(); 
+      console.log(response.data);
+      DB_STOCK = response.data; 
+      alert(DB_STOCK.length);
+      dispData(); 
     })    
-    .catch(function (error) { console.log(error); showProgress(false); });
+    .catch(function (error) { alert(error); showProgress(false); });
   }
 
 /*
